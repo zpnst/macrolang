@@ -1,12 +1,12 @@
 
 all: build run 
 	
-build:
+build: clean
 	@mkdir -p build 
-	@fasm hello.asm build/hello
+	@fasm src/main.asm build/main
 
 run: 
-	@./build/hello
+	@./build/main
 
 clean:
 	@rm -rf build
