@@ -1,12 +1,9 @@
 
 
+include 'bufs.inc'
 include 'sys.inc'
-include 'proc.inc'
-
-; system buffers
-
-__sumcNumberBuffer rb 128
-__sumcNumberBufferLen = $-__sumcNumberBuffer
+include 'funcs.inc'
+include 'fcntl.inc'
 
 ; some stuff
 nil equ 0
@@ -29,6 +26,23 @@ macro extract2 reg1, reg2 {
     extract1 reg2
 }
 
+;; for loop
+
+macro for i, from, to {
+    mov QWORD [i], from
+.#i#_again: 
+    save1 r14
+    mov r14, QWORD [i]
+    cmp r14, to
+    extract1 r14
+    jge .#i#_over
+}
+
+macro endfor i {
+    inc QWORD [i]
+    jmp .#i#_again
+.#i#_over:
+}
 ; variables
 
 is fix ,
@@ -38,11 +52,42 @@ macro let varName, varType, varVal {
         varName: dq varVal
     else
         if varType in <str>
-            varName: db varVal, 0, 10
+            varName: db varVal, 0
             __##varName#Len = $-varName
         end if
     end if
 }
+
+; numbers printing
+
+macro printNum number {
+    save2 rax, r14
+    mov rax, number
+    call _print_number
+    extract2 rax, r14
+}
+
+macro printVarNum number {
+    save2 rax, r14
+    mov rax, [number]
+    call _print_number
+    extract2 rax, r14
+}
+
+macro printNumNL number {
+    save2 rax, r14
+    mov rax, number
+    call _print_number_nl
+    extract2 rax, r14
+}
+
+macro printVarNumNL number {
+    save2 rax, r14
+    mov rax, [number]
+    call _print_number_nl
+    extract2 rax, r14
+}
+
 
 ; functions stack variables
 
@@ -58,9 +103,13 @@ macro flet varSeqNo, type, varVal {
     end if
 }
 
-; macro fprint {
+macro fprintNum varSeqNo {
+    printNum [rbp-(varSeqNo*8)]
+}
 
-; }
+macro fprintNumNL varSeqNo {
+    printNumNL [rbp-(varSeqNo*8)]
+}
 
 
 ; strings 
@@ -95,35 +144,23 @@ macro epilog  {
 
 ; function definitions
 
-macro func funcName {
+varscount fix ,
+
+macro func funcName, varC {
     if funcName in <main>
         entry _start
         _start:
-        prolog
+            prolog
+            funcVarCnt varC
     else
         funcName:
-        prolog
+            prolog
+            funcVarCnt varC
     end if
 }
 
-macro funcEnd {
+macro funcEnd varC {
+    freeFuncVars varC
     epilog
 }
-
-; numbers printing
-
-macro printNum number {
-    save2 rax, r14
-    mov rax, number
-    call _print_number
-    extract2 rax, r14
-}
-
-macro printVarNum number {
-    save2 rax, r14
-    mov rax, [number]
-    call _print_number
-    extract2 rax, r14
-}
-
 

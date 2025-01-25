@@ -7,12 +7,6 @@ _print_number_buffer:
 
     ret
 
-; number in register rax
-_print_number:
-    mov r14, __sumcNumberBuffer ;; __sumcNumberBuffer iterator
-    mov qword [r14], 10         ;; new line
-    inc r14
-
 _fill_in_the_buffer:
     mov rdx, 0    ;; to store a remainder
     mov rbx, 10   ;; divider
@@ -30,3 +24,18 @@ _fill_in_the_buffer:
     call _print_number_buffer
 
     ret
+
+; number in register rax
+_print_number:
+    mov r14, __sumcNumberBuffer ;; __sumcNumberBuffer iterator
+    ; mov qword [r14], 10         ;; new line
+    ; inc r14   
+    jmp _fill_in_the_buffer
+
+
+; number in register rax
+_print_number_nl:
+    mov r14, __sumcNumberBuffer ;; __sumcNumberBuffer iterator
+    mov qword [r14], 10         ;; new line
+    inc r14
+    jmp _fill_in_the_buffer

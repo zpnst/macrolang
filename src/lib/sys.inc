@@ -49,6 +49,15 @@ macro printStr string {
     write STDOUT_FILENO, string, __#string#Len
 }
 
+macro printNL {
+    write STDOUT_FILENO, NL, NLLen
+}
+
 macro exitOk {
     exit nil
+}
+
+macro printStrNL string {
+    printStr string
+    printNL
 }
