@@ -19,8 +19,11 @@ funcEnd
 
 func main
     call foo
-    printNum 325
 
+    printNum 42
+    printVarNum b
+    
     printStr s
+
     exitOk
 

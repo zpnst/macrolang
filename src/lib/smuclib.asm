@@ -1,5 +1,7 @@
 
-include 'includes/sys.inc'
+
+include 'sys.inc'
+include 'proc.inc'
 
 ; system buffers
 
@@ -26,7 +28,6 @@ macro extract2 reg1, reg2 {
     extract1 reg1
     extract1 reg2
 }
-
 
 ; variables
 
@@ -61,45 +62,6 @@ macro flet varSeqNo, type, varVal {
 
 ; }
 
-; syscalls
-
-macro syscall1 num, arg1 {
-    mov rax, num
-    mov rdi, arg1
-    syscall
-}
-
-macro syscall3 num, arg1, arg2, arg3 {
-    mov rax, num
-    mov rdi, arg1
-    mov rsi, arg2
-    mov rdx, arg3
-    syscall
-}
-
-;; syscalls wrappers tier 1
-
-macro write fd, buf, bufSize {
-    syscall3 SYS_WRITE, fd, buf, bufSize
-}
-
-macro read fd, buf, bufSize {
-    syscall3 SYS_READ, fd, buf, bufSize
-}
-
-macro exit code {
-    syscall1 SYS_EXIT, code
-}
-
-;; syscalls wrappers tier 2
-
-macro printStr string {
-    write STDOUT_FILENO, string, __#string#Len
-}
-
-macro exitOk {
-    exit nil
-}
 
 ; strings 
 
@@ -150,39 +112,6 @@ macro funcEnd {
 
 ; numbers printing
 
-_print_number_buffer:
-    syscall3 1, 1, r14, 1
-    dec r14
-
-    cmp r14, __sumcNumberBuffer ; same way to comapre byte [r14], 10
-    jge _print_number_buffer
-
-    ret
-
-; number in register rax
-_print_number:
-    mov r14, __sumcNumberBuffer ; __sumcNumberBuffer iterator
-    mov qword [r14], 10         ; new line
-    inc r14
-
-_fill_in_the_buffer:
-    mov rdx, 0    ; to store a remainder
-    mov rbx, 10   ; divider
-    div rbx       ; rax = rax / rbx and remainder in rdx if rdx is zero
-
-    mov rcx, 48
-    add rcx, rdx
-    mov byte [r14], cl
-    inc r14
-
-    cmp rax, 0
-    jne _fill_in_the_buffer
-
-    dec r14
-    call _print_number_buffer
-
-    ret
-
 macro printNum number {
     save2 rax, r14
     mov rax, number
@@ -190,7 +119,7 @@ macro printNum number {
     extract2 rax, r14
 }
 
-macro printRegNum number {
+macro printVarNum number {
     save2 rax, r14
     mov rax, [number]
     call _print_number
