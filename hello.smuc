@@ -1,6 +1,4 @@
 format ELF64 executable
-
-
 include 'lib/smuclib.asm'
 
 

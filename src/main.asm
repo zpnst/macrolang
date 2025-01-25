@@ -1,6 +1,4 @@
 format ELF64 executable
-
-
 include 'lib/smuclib.asm'
 
 let a, int is 0
@@ -13,7 +11,7 @@ func foo
 
         flet 1, int is 12
         ; fprint 1
-        printStr s
+        
         
 
     freeFuncVars 1
@@ -21,5 +19,8 @@ funcEnd
 
 func main
     call foo
+    printNum 325
+
+    printStr s
     exitOk
 
