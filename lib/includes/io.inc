@@ -39,3 +39,34 @@ _print_number_nl:
     mov qword [r14], 10         ;; new line
     inc r14
     jmp _fill_in_the_buffer
+
+
+; numbers printing
+
+macro printNum number {
+    save2 rax, r14
+    mov rax, number
+    call _print_number
+    extract2 rax, r14
+}
+
+macro printVarNum number {
+    save2 rax, r14
+    mov rax, [number]
+    call _print_number
+    extract2 rax, r14
+}
+
+macro printNumNL number {
+    save2 rax, r14
+    mov rax, number
+    call _print_number_nl
+    extract2 rax, r14
+}
+
+macro printVarNumNL number {
+    save2 rax, r14
+    mov rax, [number]
+    call _print_number_nl
+    extract2 rax, r14
+}

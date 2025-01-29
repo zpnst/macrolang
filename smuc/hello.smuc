@@ -1,0 +1,5 @@
+let string, str is "Hello World!"
+
+func main varscount 0
+    printStrNL string
+    exitOk

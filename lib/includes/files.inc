@@ -28,20 +28,19 @@ macro dumpFileContent fileName {
     mov rdi, fileName
     call read_file 
     cmp rax, 0
-    jl _fail_read_file
+    jl _fail_read_file#fileName
     write STDOUT_FILENO, __smucFileBuffer, __smucFileBufferLen
     jmp _nextHop#fileName
-_fail_read_file:
+_fail_read_file#fileName:
     exit rax
 _nextHop#fileName:
 }
 
 macro dumpFileLinesNumber fileName {
     for __fileLinesIterator, 0, [__smucFileBufferLen]
-
         mov rax, __smucFileBuffer
         add rax, [__fileLinesIterator]
-        mov bl, BYTE [rax]
+        mov bl, byte [rax]
         mov rcx, [__fileLinesCounter]
         mov rdx, rcx
         inc rcx
@@ -55,7 +54,8 @@ macro dumpFileLinesNumber fileName {
     printStr __smucStrCnt1
     printVarNum __fileLinesCounter
     printStr __smucStrCnt2
-    printStrNL fileName
+    printStr fileName
+    printStrNL __smucStrCnt3
 
     mov qword [__fileLinesCounter], 0
 }
