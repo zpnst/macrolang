@@ -10,7 +10,7 @@ let s2, str is "Hello World!"
 let foo1str, str is "Hello from foo1!"
 let foo2str, str is "Hello from foo2!"
 
-let fileName, str is "hello.asm"
+let fileName, str is "hello.smuc"
 
 ;; function foo 2
 
