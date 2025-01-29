@@ -6,7 +6,7 @@ This code was written solely for fun.
 
 ## FASM macro
 
-Macros in fasm are a great tool for writing code. To read more about macros and, in general, about the capabilities of flat assembly, follow this [link](https://github.com/tgrysztar/fasm/blob/master/FASM.TXT)
+Macros in fasm are a great tool for writing code. To read more about macros and, in general, about the capabilities of flat assembly, follow this [link!](https://github.com/tgrysztar/fasm/blob/master/FASM.TXT)
 
 ## csmuc linker
 
