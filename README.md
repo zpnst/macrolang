@@ -10,7 +10,7 @@ Macros in fasm are a great tool for writing code. To read more about macros and,
 
 ## csmuc linker
 
-All the linker does is create a file in its virtual address space into which it writes the fasm macro definitions first, followed by the silly macrolang program code and compiles it with the fasm command <(0_0)>
+The only thing that the linker does is creating a file in its virtual address space into which it writes the fasm macro definitions first, followed by the silly macrolang program code and compiles it with the fasm command <(0_0)>
 
 ## "Hello, World!"
 
