@@ -1,0 +1,11 @@
+
+let fileName, str is "files.smuc"
+
+func main varscount 0
+
+    dumpFileContent fileName
+    printNL
+    dumpFileLinesNumber fileName
+    printNL
+
+    exitOk

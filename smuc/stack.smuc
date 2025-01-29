@@ -1,0 +1,28 @@
+let string0, str is "Hello World From main!"
+let string1, str is "Bye main!"
+
+let string2, str is "Hello From foo1!"
+let string3, str is "Bye foo1!"
+
+func foo1 varscount 0
+    printStrNL string2
+    call foo2
+    printStrNL string3
+funcEnd 0
+
+func main varscount 0
+    printStrNL string0
+    call foo1
+    printStrNL string1
+    exitOk
+
+
+
+
+
+
+
+
+
+
+
