@@ -20,14 +20,19 @@ All the linker does is create a file in its virtual address space into which it 
 
 Hello, World!
 
+<img src="images/hello.png" alt="" width="600">
+
 #### Working with files
 
 This program reads a file with its own code and outputs its contents and the number of lines to the terminal.
+
+<img src="images/files.png" alt="" width="600">
 
 #### Function calls
 
 A simple function calls chain
 
+<img src="images/stack.png" alt="" width="600">
 
 
 The rest of the examples are in the .smuc directory.
