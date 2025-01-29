@@ -3,10 +3,10 @@ all: build run
 	
 build: clean
 	@mkdir -p build 
-	@fasm src/main.asm build/main
+	@fasm smuclib.asm build/smuclib
 
 run: 
-	@./build/main
+	@./build/smuclib
 
 clean:
 	@rm -rf build
