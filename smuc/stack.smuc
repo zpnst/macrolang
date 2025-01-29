@@ -14,14 +14,3 @@ func main varscount 0
     call foo1
     printStrNL string1
     exitOk
-
-
-
-
-
-
-
-
-
-
-
